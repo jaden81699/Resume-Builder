@@ -1,0 +1,164 @@
+{% load static %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<!-- Credit to resume template: https://sampleresumetemplate.net/-->
+<head>
+
+    <title>Jonathan Doe | Web Designer, Director | name@yourdomain.com</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+
+    <link rel="stylesheet" type="text/css"
+          href="http://yui.yahooapis.com/2.7.0/build/reset-fonts-grids/reset-fonts-grids.css" media="all"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/professional.css' %}" media="all"/>
+
+</head>
+<body>
+
+<div id="doc2" class="yui-t7">
+    <div id="inner">
+
+        <div id="hd">
+            <div class="yui-gc">
+                <div class="yui-u first">
+                    <h1>{{ resume.first_name }} {{ resume.last_name }}</h1>
+                    <h2>{{ resume.job_title }}</h2>
+                </div>
+
+                <div class="yui-u">
+                    <div class="contact-info">
+                        <h3><a href="mailto:{{ resume.email }}">{{ resume.email }}</a></h3>
+                        <h3>(313) - 867-5309</h3>
+                    </div><!--// .contact-info -->
+                </div>
+            </div><!--// .yui-gc -->
+        </div><!--// hd -->
+
+        <div id="bd">
+            <div id="yui-main">
+                <div class="yui-b">
+
+                    <div class="yui-gf">
+                        <div class="yui-u first">
+                            <h2>Professional Summary</h2>
+                        </div>
+                        <div class="yui-u">
+                            <p class="enlarge">
+                                {{ resume.professional_summary }}
+                            </p>
+                        </div>
+                    </div><!--// .yui-gf -->
+
+
+                    <div class="yui-gf">
+                        <div class="yui-u first">
+                            <h2>Skills</h2>
+                        </div>
+
+                        <div class="yui-u">
+
+                            <ul class="talent">
+                                {% for skill in skills %}
+                                    {% if forloop.counter0|divisibleby:3 %}
+                                        <li>{{ skill.name }}</li>
+                                    {% endif %}
+                                {% endfor %}
+                            </ul>
+
+                            <ul class="talent">
+                                {% for skill in skills %}
+                                    {% if forloop.counter0|divisibleby:3 == 1 %}
+                                        <li>{{ skill.name }}</li>
+                                    {% endif %}
+                                {% endfor %}
+                            </ul>
+
+                            <ul class="talent">
+                                {% for skill in skills %}
+                                    {% if forloop.counter0|divisibleby:3 == 2 %}
+                                        <li>{{ skill.name }}</li>
+                                    {% endif %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+
+                    </div><!--// .yui-gf-->
+
+                    <div class="yui-gf">
+
+                        <div class="yui-u first">
+                            <h2>Experience</h2>
+                        </div><!--// .yui-u -->
+
+                        <div class="yui-u">
+
+                            {% for emp in employment_history %}
+                                <div class="job{% if forloop.last %} last{% endif %}">
+                                    <h2>{{ emp.employer }}</h2>
+                                    <h3>{{ emp.role }}</h3>
+                                    <h4>{{ emp.start_date }} -
+
+                                        {% if emp.end_date %}
+                                        {{ emp.end_date|date:"F j, Y" }}
+                                            {% else %}
+                                                Current
+                                        {% endif %}
+                                    </h4>
+                                    <p>{{ emp.description }}</p>
+                                </div>
+
+                            {% endfor %}
+
+                        </div><!--// .yui-u -->
+                    </div><!--// .yui-gf -->
+
+                <div class="yui-gf">
+
+                        <div class="yui-u first">
+                            <h2>References</h2>
+                        </div><!--// .yui-u -->
+
+                        {% for ref in references %}
+                        <div class="yui-u">
+                            <h2>{{ ref.reference_full_name }}</h2>
+                            <h3> {{ ref.email }}</h3>
+                            <h4>{{ ref.phone_number }}</h4>
+                        </div>
+                        {% endfor %}
+                        </div><!--// .yui-u -->
+
+                    </div><!--// .yui-gf -->
+
+                    <div class="yui-gf last">
+                        <div class="yui-u first">
+                            <h2>Education</h2>
+                        </div>
+                        {% for edu in education_history %}
+                        <div class="yui-u">
+                            <h2>{{ edu.school }}</h2>
+                            <h3> {{ edu.degree }} <strong>4.0 GPA</strong></h3>
+                        </div>
+                        {% endfor %}
+                    </div><!--// .yui-gf -->
+
+
+                </div><!--// .yui-b -->
+            </div><!--// yui-main -->
+        </div><!--// bd -->
+
+        <div id="ft">
+            <p>{{ resume.first_name}} {{ resume.last_name }} &mdash; <a href="mailto:{{ resume.email }}">{{ resume.email }}</a> &mdash; (313) -
+                867-5309</p>
+        </div> <!--// footer -->
+
+    </div><!-- // inner -->
+
+
+</div><!--// doc -->
+
+
+</body>
+</html>
+
